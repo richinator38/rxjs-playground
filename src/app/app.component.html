@@ -1,0 +1,36 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>Welcome to {{ title }}!</h1>
+</div>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">RxJS Subject</h5>
+    <button class="btn btn-primary mr-4" (click)="pokeSubject(true)">
+      Subject True
+    </button>
+    <button class="btn btn-primary mr-4" (click)="pokeSubject(false)">
+      Subject False
+    </button>
+    <button class="btn btn-primary" (click)="errorSubject()">
+      Subject Error
+    </button>
+  </div>
+</div>
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title">NgRx Effect</h5>
+    <button class="btn btn-primary mr-4" (click)="ngrxSuccess()">
+      Success
+    </button>
+    <button class="btn btn-primary mr-4" (click)="ngrxError()">
+      Error - Stops Listening
+    </button>
+    <button class="btn btn-primary mr-4" (click)="ngrxErrorDontCatch()">
+      Error - Don't catch error
+    </button>
+    <button class="btn btn-primary" (click)="ngrxErrorKeepListening()">
+      Error - Keeps Listening
+    </button>
+    <div class="ml-4 mt-3">{{ name$ | async }}</div>
+  </div>
+</div>
