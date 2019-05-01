@@ -34,3 +34,18 @@
     <div class="ml-4 mt-3">{{ name$ | async }}</div>
   </div>
 </div>
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title">NgRx Effect With and Without Return Actions</h5>
+    <button class="btn btn-primary mr-4" (click)="ngrxEffectReturnTest(0)">
+      Effect Returns Action
+    </button>
+    <button class="btn btn-primary mr-4" (click)="ngrxEffectReturnTest(1)">
+      Effect Returns Nothing
+    </button>
+    <button class="btn btn-primary mr-4" (click)="ngrxEffectReturnTest(2)">
+      Effect Returns NoOp Action
+    </button>
+    <div class="ml-4 mt-3">Result: {{ someString$ | async }}</div>
+  </div>
+</div>

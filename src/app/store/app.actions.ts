@@ -5,7 +5,10 @@ export enum AppActionTypes {
   CallWithError = "[App] CallWithError",
   CallWithErrorKeepListening = "[App] CallWithErrorKeepListening",
   CallWithErrorNotCaught = "[App] CallWithErrorNotCaught",
-  SetName = "[App] SetName"
+  SetName = "[App] SetName",
+  EffectReturnTest = "[App] EffectReturnTest",
+  ActionToReturn = "[App] ActionToReturn",
+  NoopAction = "[App] NoopAction"
 }
 
 export class CallWithoutError implements Action {
@@ -30,9 +33,28 @@ export class SetName implements Action {
   constructor(public payload: string) {}
 }
 
+export class EffectReturnTest implements Action {
+  readonly type = AppActionTypes.EffectReturnTest;
+
+  constructor(public payload: number) {}
+}
+
+export class ActionToReturn implements Action {
+  readonly type = AppActionTypes.ActionToReturn;
+
+  constructor(public payload: string) {}
+}
+
+export class NoopAction implements Action {
+  readonly type = AppActionTypes.NoopAction;
+}
+
 export type AppActions =
   | CallWithoutError
   | CallWithError
   | CallWithErrorKeepListening
   | CallWithErrorNotCaught
-  | SetName;
+  | SetName
+  | EffectReturnTest
+  | ActionToReturn
+  | NoopAction;

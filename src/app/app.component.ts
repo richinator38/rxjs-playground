@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { catchError } from "rxjs/operators";
 import { of, throwError, Observable } from "rxjs";
-import { Store } from "@ngrx/store";
+import { Store, select } from "@ngrx/store";
 
 import { RxjsService } from "./services/rxjs.service";
 import * as fromRoot from "./store/reducers";
@@ -9,7 +9,8 @@ import {
   CallWithoutError,
   CallWithError,
   CallWithErrorKeepListening,
-  CallWithErrorNotCaught
+  CallWithErrorNotCaught,
+  EffectReturnTest
 } from "./store/app.actions";
 
 @Component({
@@ -20,6 +21,7 @@ import {
 export class AppComponent implements OnInit {
   title = "RxJS Playground";
   name$: Observable<string>;
+  someString$: Observable<string>;
 
   constructor(
     private rxjsService: RxjsService,
@@ -41,7 +43,8 @@ export class AppComponent implements OnInit {
         error => console.log("Error!", error)
       );
 
-    this.name$ = this.store.select(fromRoot.getName);
+    this.name$ = this.store.pipe(select(fromRoot.getName));
+    this.someString$ = this.store.pipe(select(fromRoot.getSomeString));
   }
 
   pokeSubject(value: boolean) {
@@ -66,5 +69,9 @@ export class AppComponent implements OnInit {
 
   ngrxErrorDontCatch() {
     this.store.dispatch(new CallWithErrorNotCaught());
+  }
+
+  ngrxEffectReturnTest(actionNum) {
+    this.store.dispatch(new EffectReturnTest(actionNum));
   }
 }

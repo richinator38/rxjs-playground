@@ -27,3 +27,8 @@ export const getName = createSelector(
   getAppFeature,
   fromApp.getName
 );
+
+export const getSomeString = createSelector(
+  getAppFeature,
+  fromApp.getSomeString
+);

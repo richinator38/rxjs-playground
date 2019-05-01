@@ -1,9 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
-import { switchMap, map, catchError } from "rxjs/operators";
+import { switchMap, map, catchError, finalize } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 
-import { AppActionTypes, SetName } from "./app.actions";
+import {
+  AppActionTypes,
+  SetName,
+  ActionToReturn,
+  EffectReturnTest,
+  NoopAction
+} from "./app.actions";
 import { of } from "rxjs";
 
 @Injectable()
@@ -63,5 +69,25 @@ export class AppEffects {
         switchMap(name => of(new SetName(name)))
       );
     })
+  );
+
+  @Effect()
+  effectReturnTest$ = this.actions$.pipe(
+    ofType<EffectReturnTest>(AppActionTypes.EffectReturnTest),
+    switchMap(action => {
+      switch (action.payload) {
+        case 0:
+          return of(new ActionToReturn("Some string"));
+
+        case 2:
+          return of(new NoopAction());
+      }
+    }),
+    catchError(error => {
+      // For case 1 above, this isn't caught, we would of course never want to catch an error here.
+      console.log("Error!", error);
+      return of(new NoopAction());
+    }),
+    finalize(() => console.log("Should never get to finalize!"))
   );
 }
